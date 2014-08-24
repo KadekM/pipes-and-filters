@@ -5,9 +5,14 @@
 
     var app = angular.module("webAnalyzer");
 
-    var MainController = function($scope/*, $interval, $location*/) {
+    var MainController = function($scope/*, $interval*/, $location) {
 
         $scope.testVariable = "it is alive !!!";
+
+        $scope.executeAnalyze = function(term) {
+
+            $location.path("/term/" + term);
+        };
        /* var decrementCountdown = function(){
             $scope.countdown -= 1;
             if($scope.countdown < 1){

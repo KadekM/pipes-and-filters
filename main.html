@@ -1,4 +1,7 @@
 <div>
     {{ testVariable }}
-
+    <form name="termAnalyze" ng-submit="executeAnalyze(term)">
+        <input type="search" required="" ng-model="term" />
+        <input type="submit" value="Search" />
+    </form>
 </div>
