@@ -2,10 +2,6 @@ var tryGetGoogleFullContent = function (searchTerm, webParser, onResponse, onErr
     webParser.getFullContent(
             "https://www.google.sk/search?q=" + searchTerm)
         .then(onResponse, onError);
-    // .then(onResponse, onError);
-    //{0}&tbs=cdr%3A1%2Ccd_min%3A{1}%2Ccd_max%3A{2}
-
-
 }
 
 var GOOGLE_HINTS_DIV_BEGIN = "id=\"resultStats\"";
@@ -24,35 +20,15 @@ var getSearchCount = function (googlePage) {
 
     sub = sub.substr(0, endPosTag);
 
-  //  sub = sub.replace('Ä','');
-
-   // var parts = sub.split(/Â| /);
-
-
-   // if (parts.length == 0)
-  //      return {success: false};
-
-
     var numberClean = "";
 
-   /* for (var i = 0; i < parts.length; i++) {
-        var wasNum = false;
-        */
-        for (var j = 0; j < sub.length; j++)
-        {
-            if (sub[j] >= '0' && sub[j] <= '9')
-            {
-                numberClean += sub[j];
-            }
-            else
-            if(sub.indexOf(GOOGLE_HINTS_END_INSIDE) == j)
-                break;
+    for (var j = 0; j < sub.length; j++) {
+        if (sub[j] >= '0' && sub[j] <= '9') {
+            numberClean += sub[j];
         }
-
-    /*    if(parts[i].indexOf('<nobr>') > -1)
+        else if (sub.indexOf(GOOGLE_HINTS_END_INSIDE) == j)
             break;
-    }    */
-
+    }
 
     var result = parseInt(numberClean);
     return  {success: true, result: result};
