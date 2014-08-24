@@ -46,6 +46,6 @@
     };
 
     var module = angular.module("webAnalyzer");
-    module.factory("webParser", webParser);
+    module.factory("$webParser", webParser);
 
 }());
