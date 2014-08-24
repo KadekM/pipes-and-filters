@@ -5,11 +5,16 @@
 
         var getHtml = function (url) {
          //   method: 'POST', url:
-            return $http({method: 'GET',
+            //google.com/search?q=test
+            return $.getJSON('http://anyorigin.com/get?url='+url+'&callback=?', function(data){
+                return data.contents;
+            });
+
+           /* return $http({method: 'GET',
                 url: url})
                   .then(function (response) {
                     return response.data;
-                });
+                }); */
         };
 
         /* var getRepos = function(user){

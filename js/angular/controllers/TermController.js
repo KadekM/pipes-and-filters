@@ -23,16 +23,20 @@
         var page;
 
         var onResponse = function(data){
-            $scope.repo = data;
+            page = new WebPage(data);
+            $scope.repo = getSearchCount(page);
+
         };
 
         var onError = function(reason){
             $scope.error = reason;
         };
 
-        webParser.getHTML(   //{0}&tbs=cdr%3A1%2Ccd_min%3A{1}%2Ccd_max%3A{2}
-            "https://www.google.sk/search?q="+ $scope.term)
-            .then(onResponse, onError);
+        getGoogleHTMLPromise($scope.term, webParser, onResponse, onError)
+          //  .then(onResponse, onError);
+     //   webParser.getHTML(   //{0}&tbs=cdr%3A1%2Ccd_min%3A{1}%2Ccd_max%3A{2}
+       //     "https://www.google.sk/search?q="+ $scope.term)
+
 
     };
 
