@@ -1,6 +1,3 @@
-/**
- * Created by Michal on 24. 8. 2014.
- */
 (function() {
 
     var app = angular.module("webAnalyzer");
