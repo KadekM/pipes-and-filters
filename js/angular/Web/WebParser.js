@@ -1,8 +1,5 @@
 (function(){
-
-    var webParser;
-    webParser = function ($http) {
-
+    var webParser = function ($http) {
         var getHtml = function (url) {
          //   method: 'POST', url:
             //google.com/search?q=test
@@ -42,7 +39,6 @@
         return {
             getHTML: getHtml
         };
-
     };
 
     var module = angular.module("webAnalyzer");
