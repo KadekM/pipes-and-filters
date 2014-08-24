@@ -3,7 +3,7 @@
     var webParser;
     webParser = function ($http) {
 
-        var getHtml = function (url) {
+        var getFullContent = function (url) {
          //   method: 'POST', url:
             //google.com/search?q=test
             return $.getJSON('http://anyorigin.com/get?url='+url+'&callback=?', function(data){
@@ -40,7 +40,7 @@
          };*/
 
         return {
-            getHTML: getHtml
+            getFullContent: getFullContent
         };
 
     };

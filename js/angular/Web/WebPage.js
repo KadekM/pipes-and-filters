@@ -1,4 +1,9 @@
-function WebPage (html) {
-    this.html = html;
+function WebPage (fullContent) {
+    this.fullContent = fullContent;
+
+    this.getHTMLPart = function()
+    {
+
+    }
 }
  

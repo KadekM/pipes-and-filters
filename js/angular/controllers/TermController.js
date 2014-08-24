@@ -23,16 +23,21 @@
         var page;
 
         var onResponse = function(data){
-            page = new WebPage(data);
-            $scope.repo = getSearchCount(page);
+            page = new WebPage(data.contents);
+            var countResult = getSearchCount(page);
+
+            if(countResult.success) {
+                $scope.repo = countResult.result;
+                $scope.$apply();
+            }
 
         };
 
         var onError = function(reason){
             $scope.error = reason;
         };
-
-        getGoogleHTMLPromise($scope.term, webParser, onResponse, onError)
+        $scope.repo = -1;
+        tryGetGoogleFullContent($scope.term, webParser, onResponse, onError)
           //  .then(onResponse, onError);
      //   webParser.getHTML(   //{0}&tbs=cdr%3A1%2Ccd_min%3A{1}%2Ccd_max%3A{2}
        //     "https://www.google.sk/search?q="+ $scope.term)
