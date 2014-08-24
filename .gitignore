@@ -1,4 +1,4 @@
-./.idea
+/.idea
 
 # Compiled source #
 ###################
@@ -37,4 +37,3 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-/.idea
