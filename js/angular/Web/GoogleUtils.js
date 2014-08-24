@@ -1,9 +1,3 @@
-var tryGetGoogleFullContent = function (searchTerm, webParser, onResponse, onError) {
-    webParser.getFullContent(
-            "https://www.google.sk/search?q=" + searchTerm)
-        .then(onResponse, onError);
-}
-
 var GOOGLE_HINTS_DIV_BEGIN = "id=\"resultStats\"";
 var GOOGLE_HINTS_DIV_END = "</div>";
 var GOOGLE_HINTS_END_INSIDE = "<nobr>";

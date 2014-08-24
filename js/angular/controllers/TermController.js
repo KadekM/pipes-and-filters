@@ -1,29 +1,34 @@
 (function () {
+    'use strict';
 
     var app = angular.module("webAnalyzer");
 
     var TermController = function ($scope, $webParser, $routeParams) {
-
         $scope.term = $routeParams.term;
 
         var page;
 
-        var onResponse = function (data) {
-            page = new WebPage(data.contents);
+        var onDone = function (contents) {
+           console.log(contents);
+
+          /*  page = new WebPage(contents);
             var countResult = getSearchCount(page);
 
             if (countResult.success) {
                 $scope.repo = countResult.result;
                 $scope.$apply();
-            }
-
+            }*/
         };
 
-        var onError = function (reason) {
-            $scope.error = reason;
-        };
+        var onFail = function( jqxhr, textStatus, error ) {
+            console.log(error);
+            $scope.error = error
+        }
+
         $scope.repo = -1;
-        tryGetGoogleFullContent($scope.term, $webParser, onResponse, onError)
+
+        var url = "https://www.google.sk/search?q=" + $scope.term;
+        $webParser.getFullContent(url, onDone, onFail);
     };
 
     app.controller("TermController", TermController);
