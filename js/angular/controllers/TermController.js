@@ -2,7 +2,7 @@
 
     var app = angular.module("webAnalyzer");
 
-    var TermController = function($scope, webParser, $routeParams) {
+    var TermController = function($scope, $webParser, $routeParams) {
 
      /*   var onUserComplete = function(data) {
             $scope.user = data;
@@ -39,7 +39,7 @@
         $scope.repo = -1;
         tryGetGoogleFullContent($scope.term, webParser, onResponse, onError)
           //  .then(onResponse, onError);
-     //   webParser.getHTML(   //{0}&tbs=cdr%3A1%2Ccd_min%3A{1}%2Ccd_max%3A{2}
+     //   $webParser.getHTML(   //{0}&tbs=cdr%3A1%2Ccd_min%3A{1}%2Ccd_max%3A{2}
        //     "https://www.google.sk/search?q="+ $scope.term)
 
 
