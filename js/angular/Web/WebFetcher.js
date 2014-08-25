@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var webParser = function () {
+    var webFetcher = function () {
         var getFullContent = function (url, onDone, onFail) {
             return $.getJSON('http://anyorigin.com/get?url=' + url + '&callback=?', function(data) {
                 onDone(data.contents);
@@ -13,7 +13,5 @@
         };
     };
 
-    var module = angular.module("webAnalyzer");
-    module.factory("$webParser", webParser);
-
+    angular.module("webAnalyzer").factory("$webFetcher", webFetcher);
 }());

@@ -1,34 +1,37 @@
 (function () {
     'use strict';
+// todo: promises
+// todo: unit tests
+// todo: swap to model based approach
+// todo: remove applies ^^
 
     var app = angular.module("webAnalyzer");
 
-    var TermController = function ($scope, $webParser, $routeParams) {
+    var TermController = function ($scope, $routeParams, $webFetcher, $googleParser) {
         $scope.term = $routeParams.term;
 
-        var page;
-
         var onDone = function (contents) {
-           console.log(contents);
+            console.log({onDone: contents});
 
-          /*  page = new WebPage(contents);
-            var countResult = getSearchCount(page);
-
-            if (countResult.success) {
-                $scope.repo = countResult.result;
+            try {
+                $scope.repo = $googleParser.parse(contents).count;
+            } catch (_) {
+                $scope.repo = "ERRRRR";
+            } finally {
                 $scope.$apply();
-            }*/
+            }
         };
 
-        var onFail = function( jqxhr, textStatus, error ) {
-            console.log(error);
+        var onFail = function (jqxhr, textStatus, error) {
+            console.log({onFail: error});
             $scope.error = error
+            $scope.$apply();
         }
 
-        $scope.repo = -1;
+        $scope.repo = "Work in progress"
 
         var url = "https://www.google.sk/search?q=" + $scope.term;
-        $webParser.getFullContent(url, onDone, onFail);
+        $webFetcher.getFullContent(url, onDone, onFail);
     };
 
     app.controller("TermController", TermController);
