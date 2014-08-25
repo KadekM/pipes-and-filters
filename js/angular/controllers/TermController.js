@@ -18,14 +18,14 @@
             } catch (_) {
                 $scope.repo = "ERRRRR";
             } finally {
-                $scope.$apply();
+              //  $scope.$apply();
             }
         };
 
         var onFail = function (jqxhr, textStatus, error) {
             console.log({onFail: error});
             $scope.error = error
-            $scope.$apply();
+           // $scope.$apply();
         }
 
         $scope.repo = "Work in progress"
