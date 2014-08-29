@@ -8,7 +8,6 @@
     var app = angular.module("webAnalyzer");
 
     var TermController = function ($scope, $routeParams, $webFetcher, $googleParser) {
-        $scope.term = $routeParams.term;
 
         var onDone = function (contents) {
             console.log({onDone: contents});
@@ -26,6 +25,10 @@
             console.log({onFail: error});
             $scope.error = error
            // $scope.$apply();
+        }
+
+        if($routeParams.term) {
+            $scope.term = $routeParams.term;
         }
 
         $scope.repo = "Work in progress"

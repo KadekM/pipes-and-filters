@@ -4,3 +4,14 @@
         <button class="btn-search" />
     </div>
 </form>
+
+
+<table>
+    <tbody>
+    <tr ng-repeat="term in terms">
+        <td>
+            <div ng-include src="'term.html'"/>
+        </td>
+    </tr>
+    </tbody>
+</table>
