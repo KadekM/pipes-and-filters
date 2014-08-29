@@ -1,22 +1,16 @@
 'use strict';
 
 (function() {
+    angular.module("webAnalyzer.controllers").controller("MainController",
+        function($scope) {
 
-    var app = angular.module("webAnalyzer");
+            $scope.executeAnalyze = function(term) {
+                if($scope.terms.indexOf(term) === -1) {
+                    $scope.terms.push(term);
+                }
+            };
 
-    var MainController = function($scope, $location) {
-
-        $scope.testVariable = "it is alive !!!";
-
-        $scope.executeAnalyze = function(term) {
-            //$location.path("/term/" + term);
-
-            if($scope.terms.indexOf(term) === -1) {
-                $scope.terms.push(term);
-            }
-        };
-
-        $scope.terms = [];
-    };
-    app.controller("MainController", MainController);
+            $scope.terms = [];
+        }
+    );
 }());
