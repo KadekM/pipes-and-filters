@@ -13,6 +13,14 @@
 
             $scope.terms = [];
 
+            // analyzis type
+
+            $scope.analyzisTypes = [
+                {name:'hintsCount', text:'Hints'},
+                {name:'sentimentAnalyzis', text:'Sentiment'}
+            ];
+            $scope.selectedAnalyzisType = $scope.analyzisTypes[0];
+
             // graph:
             $scope.chart = null;
             $scope.config = {};

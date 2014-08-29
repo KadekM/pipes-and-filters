@@ -1,19 +1,16 @@
 <div ng-controller="TermController">
 
 <h2>{{term}}</h2>
-
-<h3>
+<hr/>
+<h3 ng-show="error">
     Error?: {{error}}
 </h3>
 
 
 
 <h3>
-    HTML response:
+    Current hits count:
     <br/>
     {{repo}}
 </h3>
-
-<a href="#/main">Back to main</a>
-
 </div>
