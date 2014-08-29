@@ -16,7 +16,7 @@
             // analyzis type
 
             $scope.analyzisTypes = [
-                {name:'hintsCount', text:'Hints'},
+                {name:'hitsCount', text:'Hits'},
                 {name:'sentimentAnalyzis', text:'Sentiment'}
             ];
             $scope.selectedAnalyzisType = $scope.analyzisTypes[0];
