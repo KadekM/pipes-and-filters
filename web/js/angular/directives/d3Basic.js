@@ -1,6 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
+(function () {
     angular.module('webAnalyzer.directives')
         .directive('d3Bars', ['d3', function(d3) {
             return {
@@ -75,10 +75,8 @@
                             .attr("y", function(d, i){return i * 35 + 22;})
                             .attr("x", 15)
                             .text(function(d){return d[scope.label];});
-
                     };
                 }
             };
         }]);
-
 }());

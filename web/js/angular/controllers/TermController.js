@@ -1,5 +1,6 @@
+'use strict';
+
 (function () {
-    'use strict';
 // todo: promises
 // todo: unit tests
 // todo: swap to model based approach
@@ -16,15 +17,12 @@
                 $scope.repo = $googleParser.parse(contents).count;
             } catch (_) {
                 $scope.repo = "ERRRRR";
-            } finally {
-              // $scope.$apply();
             }
         };
 
         var onFail = function (jqxhr, textStatus, error) {
             console.log({onFail: error});
             $scope.error = error
-           // $scope.$apply();
         }
 
         if($routeParams.term) {
@@ -36,7 +34,6 @@
         var url = "https://www.google.sk/search?q=" + $scope.term;
         $webFetcher.getFullContent(url, onDone, onFail);
     };
-
     app.controller("TermController", TermController);
 
 }());

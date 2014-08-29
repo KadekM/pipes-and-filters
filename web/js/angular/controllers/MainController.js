@@ -1,3 +1,5 @@
+'use strict';
+
 (function() {
 
     var app = angular.module("webAnalyzer");
@@ -14,10 +16,7 @@
             }
         };
 
-
         $scope.terms = [];
     };
-
     app.controller("MainController", MainController);
-
 }());

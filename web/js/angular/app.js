@@ -1,6 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
+(function () {
     angular.module("webAnalyzer", ["ngRoute"])
         .config(function ($routeProvider) {
             $routeProvider
