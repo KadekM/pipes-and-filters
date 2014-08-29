@@ -1,10 +1,28 @@
-<form name="termAnalyze" ng-submit="executeAnalyze(term)">
-    <div class="input-control text">
-        <input type="text" required="" ng-model="term" />
-        <button class="btn-search" />
-    </div>
-</form>
+<nav class="navigation-bar">
+    <nav class="navigation-bar-content fixed-top">
+        <div class="element">
+            <a class="dropdown-toggle" href="#">ANALYSIS</a>
+            <ul class="dropdown-menu" data-role="dropdown">
+                <li><a href="./index.html">New</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Export</a></li>
+            </ul>
+        </div>
 
+        <span class="element-divider"></span>
+
+        <div class="element input-element">
+            <form name="termAnalyze" ng-submit="executeAnalyze(term)">
+                <div class="input-control text">
+                    <input type="text" required="" ng-model="term" />
+                    <button class="btn-search" />
+                </div>
+            </form>
+
+        </div>
+
+    </nav>
+</nav>
 
 <table>
     <tbody>

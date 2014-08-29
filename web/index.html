@@ -12,28 +12,11 @@
 
 <body class="metro">
 
-<nav class="navigation-bar">
-    <nav class="navigation-bar-content fixed-top">
-        <div class="element">
-            <a class="dropdown-toggle" href="#">ANALYSIS</a>
-            <ul class="dropdown-menu" data-role="dropdown">
-                <li><a href="./index.html">New</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Export</a></li>
-            </ul>
-        </div>
+<div ng-view>
 
-        <span class="element-divider"></span>
+</div>
 
-        <div class="element input-element">
-            <div ng-view>
 
-            </div>
-
-        </div>
-
-    </nav>
-</nav>
 
 <!-- Load the javascript libraries -->
 <script src="js/c3/c3-0.2.4.min.js"></script>
