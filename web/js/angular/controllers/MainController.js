@@ -2,25 +2,64 @@
 
 (function() {
     angular.module("webAnalyzer.controllers").controller("MainController",
-        function($scope) {
+        function($scope, $timeout, $fakeDataService) {
 
-            $scope.executeAnalyze = function(term) {
-                if($scope.terms.indexOf(term) === -1) {
+            // terms:
+            $scope.executeAnalyze = function (term) {
+                if ($scope.terms.indexOf(term) === -1) {
                     $scope.terms.push(term);
                 }
             };
 
             $scope.terms = [];
 
+            // graph:
+            $scope.chart = null;
+            $scope.config = {};
 
-            $scope.d3Data = [
-                {name: "A", score:98},
-                {name: "B", score:96},
-                {name: "C", score: 48}
-            ];
-            $scope.d3OnClick = function(item){
-                alert(item.name);
-            };
+            $scope.config.data = []
+
+            $scope.config.type1 = "spline";
+            $scope.config.type2 = "spline";
+            $scope.config.keys = {"x": "x", "value": ["data1", "data2"]};
+
+            $scope.keepLoading = true;
+
+            $scope.showGraph = function () {
+                var config = {};
+                config.bindto = '#chart';
+                config.data = {};
+                config.data.keys = $scope.config.keys;
+                config.data.json = $scope.config.data;
+                config.axis = {};
+                config.axis.x = {"type": "timeseries", "tick": {"format": "%S"}};
+                config.axis.y = {"label": {"text": "Number of items", "position": "outer-middle"}};
+                config.data.types = {"data1": $scope.config.type1, "data2": $scope.config.type2};
+                $scope.chart = c3.generate(config);
+            }
+
+            $scope.startLoading = function () {
+                $scope.keepLoading = true;
+                $scope.loadNewData();
+            }
+
+            $scope.stopLoading = function () {
+                $scope.keepLoading = false;
+            }
+
+            $scope.loadNewData = function () {
+                $fakeDataService.loadData(function (newData) {
+                    var data = {};
+                    data.keys = $scope.config.keys;
+                    data.json = newData;
+                    $scope.chart.load(data);
+                    $timeout(function () {
+                        if ($scope.keepLoading) {
+                            $scope.loadNewData()
+                        }
+                    }, 1000);
+                });
+            }
         }
     );
 }());

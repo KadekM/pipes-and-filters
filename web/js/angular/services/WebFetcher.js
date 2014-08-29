@@ -6,8 +6,8 @@
             return $.getJSON('http://anyorigin.com/get?url=' + url + '&callback=?', function(data) {
                 onDone(data.contents);
                 externalApply();
-            }).fail( function(){
-                onFail;
+            }).fail(function(){
+                onFail();
                 externalApply();
             });
         };
