@@ -8,7 +8,10 @@
 
         $scope.executeAnalyze = function(term) {
             //$location.path("/term/" + term);
-            $scope.terms.push(term);
+
+            if($scope.terms.indexOf(term) === -1) {
+                $scope.terms.push(term);
+            }
         };
 
 
