@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-    angular.module("webAnalyzer", ["webAnalyzer.controllers", "webAnalyzer.directives", "ngRoute"])
+    angular.module("webAnalyzer", ["webAnalyzer.controllers", "webAnalyzer.services", "ngRoute"])
         .config(function ($routeProvider) {
             $routeProvider
                 .when("/main", { // todo later
@@ -15,7 +15,6 @@
                 .otherwise({redirectTo: "/main"});
         });
 
-    angular.module('d3', []);
     angular.module('webAnalyzer.controllers', []);
-    angular.module('webAnalyzer.directives', ['d3']);
+    angular.module('webAnalyzer.services', []);
 }());

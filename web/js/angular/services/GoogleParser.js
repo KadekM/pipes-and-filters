@@ -1,6 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
+(function () {
     var GOOGLE_HINTS_DIV_BEGIN = "id=\"resultStats\"";
     var GOOGLE_HINTS_DIV_END = "</div>";
     var GOOGLE_HINTS_END_INSIDE = "<nobr>";
@@ -38,5 +38,5 @@
         };
     };
 
-    angular.module("webAnalyzer").factory("$googleParser", googleParser);
+    angular.module("webAnalyzer.services").factory("$googleParser", googleParser);
 }());

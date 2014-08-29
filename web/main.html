@@ -16,18 +16,9 @@
     </tbody>
 </table>
 
-<div ng-controller="MainController" >
-
-    <d3-bars data="d3Data" label="name" on-click="d3OnClick(item)"></d3-bars>
-
-    <br>
-    <br>
-    <span>First Item</span>
-    <input type="text" ng-model="d3Data[0].score"></input>
-    <br>
-    <span>Second Item</span>
-    <input type="text" ng-model="d3Data[1].score"></input>
-    <br>
-    <span>Third Item</span>
-    <input type="text" ng-model="d3Data[2].score"></input>
+<div ng-controller="MainController" ng-init="showGraph()" >
+    <p>After pushing the button a few new data points will be loaded.</p>
+    <button ng-click="startLoading()">Start loading</button>
+    <button ng-click="stopLoading()">Stop loading</button>
+    <div id="chart"></div>
 </div>

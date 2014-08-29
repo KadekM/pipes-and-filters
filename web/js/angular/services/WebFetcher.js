@@ -1,6 +1,6 @@
-(function () {
-    'use strict';
+'use strict';
 
+(function () {
     var webFetcher = function () {
         var getFullContent = function (url, onDone, onFail) {
             return $.getJSON('http://anyorigin.com/get?url=' + url + '&callback=?', function(data) {
@@ -25,5 +25,5 @@
         };
     };
 
-    angular.module("webAnalyzer").factory("$webFetcher", webFetcher);
+    angular.module("webAnalyzer.services").factory("$webFetcher", webFetcher);
 }());
