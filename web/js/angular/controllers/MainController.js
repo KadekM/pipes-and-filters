@@ -11,6 +11,16 @@
             };
 
             $scope.terms = [];
+
+
+            $scope.d3Data = [
+                {name: "A", score:98},
+                {name: "B", score:96},
+                {name: "C", score: 48}
+            ];
+            $scope.d3OnClick = function(item){
+                alert(item.name);
+            };
         }
     );
 }());
