@@ -50,6 +50,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <None Include="Playground.fsx" />
+    <Compile Include="Messages.fs" />
     <Compile Include="Infrastructure.fs" />
   </ItemGroup>
   <ItemGroup>
