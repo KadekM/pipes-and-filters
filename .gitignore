@@ -1,4 +1,7 @@
 /.idea
+/bin
+/obj
+/packages
 
 # Compiled source #
 ###################
