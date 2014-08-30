@@ -19,7 +19,7 @@
                     <button class="btn-search" />
                 </div>
                 <div class="input-control text select size2">
-                    <select ng-model="selectedAnalyzisType" ng-options="type.text for type in analyzisTypes"></select>
+                    <select ng-model="selectedAnalysisType" ng-options="type.text for type in analysisTypes"></select>
                 </div>
 
             </form>
@@ -31,7 +31,7 @@
 
 <table>
     <tbody>
-    <tr ng-repeat="term in terms">
+    <tr ng-repeat="request in requests">
         <td>
             <div ng-include src="'term.html'"/>
         </td>

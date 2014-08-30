@@ -1,16 +1,17 @@
 <div ng-controller="TermController">
 
-<h2>{{term}}</h2>
-<hr/>
-<h3 ng-show="error">
-    Error?: {{error}}
-</h3>
+    <h2>{{request.term}}</h2>
+    <h3>{{request.type}}</h3>
+    <hr/>
+    <h3 ng-show="error">
+        Error?: {{error}}
+    </h3>
 
 
 
-<h3>
-    Current hits count:
-    <br/>
-    {{repo}}
-</h3>
+    <h3>
+        Current hits count:
+        <br/>
+        {{repo}}
+    </h3>
 </div>

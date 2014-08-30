@@ -18,13 +18,9 @@
                 $scope.error = error
             }
 
-            if($routeParams.term) {
-                $scope.term = $routeParams.term;
-            }
-
             $scope.repo = "Work in progress"
 
-            var url = "https://www.google.sk/search?q=" + $scope.term;
+            var url = "https://www.google.sk/search?q=" + $scope.request.term;
             $webFetcher.getFullContent(url, onDone, onFail);
         }
     );

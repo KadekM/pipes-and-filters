@@ -4,22 +4,44 @@
     angular.module("webAnalyzer.controllers").controller("MainController",
         function($scope, $timeout, $fakeDataService) {
 
-            // terms:
-            $scope.executeAnalyze = function (term) {
-                if ($scope.terms.indexOf(term) === -1) {
-                    $scope.terms.push(term);
-                }
+            // requests:
+
+            $scope.requests = [];
+
+            $scope.executeAnalyze = function ($term) {
+
+                var $analysisType = $scope.selectedAnalysisType.name;
+
+                var $request = {term:$term, type:$analysisType};
+
+                if(containsAnalysisRequest($request))
+                    return;
+
+                $scope.requests.push($request);
+
             };
 
-            $scope.terms = [];
+            var containsAnalysisRequest = function($request)
+            {
+                for(var i = 0; i < $scope.requests.length; i++) {
+                    if ($scope.requests[i].term === $request.term
+                        && $scope.requests[i].type === $request.type) {
+                        return true;
+                    }
+                }
 
-            // analyzis type
+                return false;
+            }
 
-            $scope.analyzisTypes = [
+
+
+            // analysis type
+
+            $scope.analysisTypes = [
                 {name:'hitsCount', text:'Hits'},
-                {name:'sentimentAnalyzis', text:'Sentiment'}
+                {name:'sentimentAnalysis', text:'Sentiment'}
             ];
-            $scope.selectedAnalyzisType = $scope.analyzisTypes[0];
+            $scope.selectedAnalysisType = $scope.analysisTypes[0];
 
             // graph:
             $scope.chart = null;
