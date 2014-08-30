@@ -13,3 +13,7 @@ E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Web.Http.WebHost.x
 E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\FSharp.Core.xml
 E:\code\webanal2\webanalyzer\server\Server.WebHost\obj\Debug\Server.WebHost.dll
 E:\code\webanal2\webanalyzer\server\Server.WebHost\obj\Debug\Server.WebHost.pdb
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Server.Data.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Server.Data.pdb
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Server.Data.xml
+E:\code\webanal2\webanalyzer\server\Server.WebHost\obj\Debug\Server.WebHost.fsprojResolveAssemblyReference.cache

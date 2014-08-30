@@ -1,0 +1,7 @@
+E:\code\webanal2\webanalyzer\server\Server.Data\bin\Debug\Server.Data.XML
+E:\code\webanal2\webanalyzer\server\Server.Data\bin\Debug\Server.Data.dll
+E:\code\webanal2\webanalyzer\server\Server.Data\bin\Debug\Server.Data.pdb
+E:\code\webanal2\webanalyzer\server\Server.Data\bin\Debug\FSharp.Core.dll
+E:\code\webanal2\webanalyzer\server\Server.Data\bin\Debug\FSharp.Core.xml
+E:\code\webanal2\webanalyzer\server\Server.Data\obj\Debug\Server.Data.dll
+E:\code\webanal2\webanalyzer\server\Server.Data\obj\Debug\Server.Data.pdb

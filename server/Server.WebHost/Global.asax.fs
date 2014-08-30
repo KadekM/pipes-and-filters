@@ -16,13 +16,16 @@ type Global() =
         config.MapHttpAttributeRoutes()
         config.Routes.MapHttpRoute(
             "DefaultApi", // Route name
-            "{controller}/{id}", // URL with parameters
+            "api/{controller}/{id}", // URL with parameters
             { controller = "{controller}"; id = RouteParameter.Optional } // Parameter defaults
         ) |> ignore
 
         // Configure serialization
-        config.Formatters.XmlFormatter.UseXmlSerializer <- false
+        #if DEBUG
         config.Formatters.JsonFormatter.SupportedMediaTypes.Add(MediaTypeHeaderValue("text/html") );
+        #endif
+
+        config.Formatters.XmlFormatter.UseXmlSerializer <- false
         config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
         config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
