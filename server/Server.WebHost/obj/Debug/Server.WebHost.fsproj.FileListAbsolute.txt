@@ -1,0 +1,15 @@
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Server.WebHost.dll.config
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Server.WebHost.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Server.WebHost.pdb
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\FSharp.Core.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Newtonsoft.Json.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Net.Http.Formatting.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Web.Http.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Web.Http.WebHost.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\Newtonsoft.Json.xml
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Net.Http.Formatting.xml
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Web.Http.xml
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\System.Web.Http.WebHost.xml
+E:\code\webanal2\webanalyzer\server\Server.WebHost\bin\FSharp.Core.xml
+E:\code\webanal2\webanalyzer\server\Server.WebHost\obj\Debug\Server.WebHost.dll
+E:\code\webanal2\webanalyzer\server\Server.WebHost\obj\Debug\Server.WebHost.pdb
