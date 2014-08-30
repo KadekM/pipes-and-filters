@@ -24,13 +24,13 @@ type CompositionRoot() =
             async {
                 let! cmd = inbox.Receive()
               //  let handle = Handle maxJobs tasks
-
+              //todo <--- --->
                 return! loop()}
         loop())
     do agent.Start()
 
     interface IHttpControllerActivator with
-        member x.Create(request, controllerDescriptor, controllerType) = 
+        member this.Create(request, controllerDescriptor, controllerType) = 
             if (controllerType = typeof<AnalysisController>) then
                 let c = new AnalysisController()
                 let sub = c.Subscribe agent.Post
@@ -58,6 +58,9 @@ type Global() =
             { controller = "{controller}"; id = RouteParameter.Optional } // Parameter defaults
         ) |> ignore
 
+        // Configure services
+        config.Services.Replace(typeof<IHttpControllerActivator>, CompositionRoot())
+
         // Configure serialization
         #if DEBUG
         config.Formatters.JsonFormatter.SupportedMediaTypes.Add(MediaTypeHeaderValue("text/html") );
@@ -69,5 +72,5 @@ type Global() =
 
         // Additional Web API settings
 
-    member x.Application_Start() =
+    member this.Application_Start() =
         GlobalConfiguration.Configure(Action<_> Global.RegisterWebApi)
