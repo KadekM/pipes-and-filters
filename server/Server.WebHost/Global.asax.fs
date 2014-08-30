@@ -1,8 +1,42 @@
 namespace Server.WebHost
+open Server.WebHost.Controllers
+open Infrastructure
 
 open System
 open System.Web.Http
 open System.Net.Http.Headers
+
+open System.Web.Http.Dispatcher
+open System.Web.Http.Controllers
+
+//todo move to Server data or somewhere upper
+//todo generic envelope with timestamp
+
+type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
+
+type CompositionRoot() = 
+    let maxJobs = 5
+    let tasks = System.Collections.Concurrent.ConcurrentBag<AnalysisTask>()
+
+    let agent = new Agent<AnalysisTask>(fun inbox ->
+        let rec loop() = 
+            async {
+                let! cmd = inbox.Receive()
+              //  let handle = Handle maxJobs tasks
+
+                return! loop()}
+        loop())
+    do agent.Start()
+
+    interface IHttpControllerActivator with
+        member x.Create(request, controllerDescriptor, controllerType) = 
+            if (controllerType = typeof<AnalysisController>) then
+                new AnalysisController() :> IHttpController
+            else
+                raise <| ArgumentException(sprintf "Unkown controller type requested: %O" controllerType, "controllerType")
+        
+        
+
 
 type HttpRoute = {
     controller : string

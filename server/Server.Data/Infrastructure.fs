@@ -6,37 +6,37 @@ open System
 
 [<CLIMutable>]
 type Link = {
-    rel: string
-    uri: string
+    Rel: string
+    Uri: string
 }
 
-let Link rel uri = {rel = rel; uri = uri}
+let Link rel uri = {Rel = rel; Uri = uri}
 
 [<CLIMutable>]
 type AnalysisRequest = {
-    term: string
+    Term: string
 }
 
-let AnalysisRequest term = {term = term}
+let AnalysisRequest term = {Term = term}
 
 [<CLIMutable>]
 type TaskInfoResponse = {
-    guid: Guid
-    data: Link
+    Id: Guid
+    Data: Link
 }
 
-let TaskInfoResponse guid data = {guid = guid; data = data}
+let TaskInfoResponse id data = {Id = id; Data = data}
 
-type Task = {
-    request: AnalysisRequest
-    guid: Guid
+type AnalysisTask = {
+    Id: Guid
+    Request: AnalysisRequest
 }
 
-let Task request guid = {request = request; guid = guid}
+let AnalysisTask id request = {Id = id; Request = request}
 
 //
 
-let CreateTask request = Task request <| Guid.NewGuid()
+let CreateTask request = AnalysisTask (Guid.NewGuid()) request
 
-let AsTaskInfoResponse task = TaskInfoResponse task.guid <| Link "TODO" ("/analysis/"+task.guid.ToString())
+let AsTaskInfoResponse task = TaskInfoResponse task.Id <| Link "TODO" ("/analysis/"+task.Id.ToString())
 
