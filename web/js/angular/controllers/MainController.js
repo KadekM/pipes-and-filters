@@ -11,24 +11,24 @@
             $scope.executeAnalyze = function ($term) {
 
                 var $analysisType = $scope.selectedAnalysisType.name;
-
                 var $request = {term:$term, type:$analysisType};
 
                 if(containsAnalysisRequest($request))
                     return;
 
                 $scope.requests.push($request);
-
             };
 
             var containsAnalysisRequest = function($request)
             {
-                for(var i = 0; i < $scope.requests.length; i++) {
-                    if ($scope.requests[i].term === $request.term
-                        && $scope.requests[i].type === $request.type) {
-                        return true;
-                    }
-                }
+                // linq
+                if(Enumerable.From($scope.requests).Any(
+                        function($item)
+                        {
+                            return($item.term === $request.term
+                                && $item.type === $request.type)
+                        }))
+                    return true;
 
                 return false;
             }
