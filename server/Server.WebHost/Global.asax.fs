@@ -3,6 +3,7 @@ open Server.WebHost.Controllers
 open Infrastructure
 
 open System
+open System.Net.Http
 open System.Web.Http
 open System.Net.Http.Headers
 
@@ -31,7 +32,10 @@ type CompositionRoot() =
     interface IHttpControllerActivator with
         member x.Create(request, controllerDescriptor, controllerType) = 
             if (controllerType = typeof<AnalysisController>) then
-                new AnalysisController() :> IHttpController
+                let c = new AnalysisController()
+                let sub = c.Subscribe agent.Post
+                request.RegisterForDispose sub
+                c :> IHttpController
             else
                 raise <| ArgumentException(sprintf "Unkown controller type requested: %O" controllerType, "controllerType")
         

@@ -3,7 +3,6 @@ namespace Server.WebHost.Controllers
 open Messages
 open Infrastructure
 
-
 open System.Web.Http
 open System.Reactive.Subjects
 open System
