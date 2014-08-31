@@ -36,17 +36,14 @@ type CompositionRoot() =
             else
                 raise <| ArgumentException(sprintf "Unkown controller type requested: %O" controllerType, "controllerType")
         
-
-type HttpRoute = {
-    controller : string
-    id : RouteParameter }
+type HttpRoute = {controller: string; id: RouteParameter}
 
 let ConfigureRoutes(config: HttpConfiguration) = 
     //config.MapHttpAttributeRoutes()
     config.Routes.MapHttpRoute(
         "DefaultApi", // Route name
         "api/{controller}/{id}", // URL with parameters
-        { controller = "{controller}"; id = RouteParameter.Optional } // Parameter defaults
+        {controller = "{controller}"; id = RouteParameter.Optional} // Parameter defaults
     ) |> ignore
 
 let ConfigureServices(config: HttpConfiguration) =
