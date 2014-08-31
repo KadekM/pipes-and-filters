@@ -4,11 +4,13 @@
 
 open DomainModel
 
-let t = Analysis.Empty
-
-let random = System.Random()
-let data = Analysis.Data (random.Next(1,100)) (DateTimeOffset.Now.AddDays(float(random.Next(-10,10))))
-let newTask = Analysis.AppendData [| data |] t
-let newTask2 = Analysis.AppendData [| data |] newTask
 
 
+let x = async {
+    do! Async.Sleep(2000)
+    printfn "IN"
+}
+
+printfn "A"
+[x] |> Async.Parallel |> Async.RunSynchronously
+printfn "B"

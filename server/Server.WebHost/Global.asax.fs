@@ -17,6 +17,8 @@ type Global() =
     member this.Application_Start() =
         let tasks = ConcurrentDictionary<Guid, Analysis.Task>()
 
+        // !!! ASYNCHRONITY REQUIRES MASSIVE CLEANUP!!!
+
         // todo MOVE away!
         let ProcessTask (task: Analysis.Task) =
             let x = async {
@@ -36,12 +38,11 @@ type Global() =
                 }
 
                 // todo CLEAN
-                [1..10] |> List.map (fun _ -> Async.RunSynchronously ( work (tasks.Item(task.Id)) )) |> ignore
+                [1..15] |> List.map (fun _ -> Async.RunSynchronously ( work (tasks.Item(task.Id)) )) |> ignore
                 ()
             }
-            Async.RunSynchronously x
-
-
+            System.Threading.Thread(fun () -> Async.RunSynchronously x).Start()
+            ()
 
         let tasksSubject = new Subjects.Subject<Analysis.Task>()
         tasksSubject.Subscribe ProcessTask |> ignore
