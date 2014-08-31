@@ -11,7 +11,7 @@
             $scope.executeAnalyze = function ($term) {
 
                 var $analysisType = $scope.selectedAnalysisType.name;
-                var $request = {term:$term, type:$analysisType};
+                var $request = {term:$term, type:$analysisType, showTop:true};
 
                 if(containsAnalysisRequest($request))
                     return;
