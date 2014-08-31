@@ -15,20 +15,8 @@ open System.Web.Http.Controllers
 
 type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
 
-type CompositionRoot(tasks: System.Collections.Concurrent.ConcurrentBag<AnalysisTask>) = 
-    let maxJobs = 5
+type CompositionRoot(tasks: System.Collections.Concurrent.ConcurrentBag<AnalysisTask>, tasksRequestObserver) = 
 
-    let agent = new Agent<AnalysisTask>(fun inbox ->
-        let rec loop() = 
-            async {
-                let! cmd = inbox.Receive()
-                tasks.Add(cmd)
-              //  let handle = Handle maxJobs tasks
-              //todo <--- --->
-                return! loop()}
-        loop())
-    do agent.Start()
-    let tasksRequestObserver = Observer.Create agent.Post
 
     interface IHttpControllerActivator with
         member this.Create(request, controllerDescriptor, controllerType) = 
@@ -51,8 +39,8 @@ let ConfigureRoutes(config: HttpConfiguration) =
         {controller = "{controller}"; id = RouteParameter.Optional} // Parameter defaults
     ) |> ignore
 
-let ConfigureServices tasks (config: HttpConfiguration) =
-     config.Services.Replace(typeof<IHttpControllerActivator>, CompositionRoot(tasks))
+let ConfigureServices tasks tasksRequestObserver (config: HttpConfiguration) =
+     config.Services.Replace(typeof<IHttpControllerActivator>, CompositionRoot(tasks, tasksRequestObserver))
 
 let ConfigureFormatters(config: HttpConfiguration) =
      #if DEBUG
@@ -63,9 +51,9 @@ let ConfigureFormatters(config: HttpConfiguration) =
      config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
-let Configure tasks config =
+let Configure tasks tasksRequestObserver config =
     ConfigureRoutes config
-    ConfigureServices tasks config
+    ConfigureServices tasks tasksRequestObserver config
     ConfigureFormatters config
 
 /////////////////
