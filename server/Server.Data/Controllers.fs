@@ -5,9 +5,10 @@ open DomainModel
 open System.Web.Http
 open System.Reactive.Subjects
 open System
+open System.Collections.Concurrent
 
 // todo make readonly
-type AnalysisController(analysisTasks: seq<Analysis.Task>) =
+type AnalysisController(analysisTasks: ConcurrentDictionary<Guid, Analysis.Task>) =
     inherit ApiController()
 
     let subject = new Subject<Analysis.Task>()
@@ -25,7 +26,5 @@ type AnalysisController(analysisTasks: seq<Analysis.Task>) =
         Analysis.AsTaskInfoResponse task
 
     member this.GetAnalysis(id: string) =
-        let task = analysisTasks |> Seq.tryFind(fun x -> x.Id.ToString() = id)
-        match task with
-        | Some x -> x
-        | None -> Analysis.Empty
+        analysisTasks.Item(Guid.Parse(id))
+     

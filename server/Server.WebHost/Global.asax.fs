@@ -6,6 +6,7 @@ open System.Web.Http
 open System.Collections.Concurrent
 open FSharp.Reactive
 open System.Reactive
+open System
 
 //todo generic envelope with timestamp
 
@@ -13,19 +14,28 @@ type Global() =
     inherit System.Web.HttpApplication() 
 
     member this.Application_Start() =
-        let tasks = ConcurrentBag<Analysis.Task>()
-        let maxJobs = 5
+        let tasks = ConcurrentDictionary<Guid, Analysis.Task>()
+
+        // todo MOVE away!
+        let ProcessTask (task:Analysis.Task) =
+            tasks.TryAdd(task.Id, task) |> ignore
+           (* let work = async {
+                let random = System.Random()
+                do! Async.Sleep 2000
+                let poppedTask = tasks.
+                return! ()
+            }*)
+            ()
+
 
         let tasksSubject = new Subjects.Subject<Analysis.Task>()
-        tasksSubject.Subscribe tasks.Add |> ignore
+        tasksSubject.Subscribe ProcessTask |> ignore
 
         let agent = new Agent<Analysis.Task>(fun inbox ->
             let rec loop() = 
                 async {
                     let! task = inbox.Receive()
                     tasksSubject.OnNext task
-                  //  let handle = Handle maxJobs tasks
-                  //todo <--- --->
                     return! loop() }
             loop())
         do agent.Start()

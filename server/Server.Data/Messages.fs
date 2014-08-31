@@ -3,7 +3,6 @@ module Messages
 
 open System
 
-[<CLIMutable>]
 type Link = {
     Rel: string
     Uri: string
@@ -20,7 +19,6 @@ let EmptyAnalysisRequest = {Term = ""}
 
 let AnalysisRequest term = {Term = term}
 
-[<CLIMutable>]
 type TaskInfoResponse = {
     Id: Guid
     Data: Link
