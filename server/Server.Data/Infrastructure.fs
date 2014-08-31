@@ -1,5 +1,6 @@
 ﻿module Infrastructure
-open Messages
+open DomainModel
+
 open Server.WebHost.Data.Controllers
 
 open System

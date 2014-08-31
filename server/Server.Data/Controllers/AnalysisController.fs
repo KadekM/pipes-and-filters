@@ -1,6 +1,6 @@
 namespace Server.WebHost.Data.Controllers
-
 open Messages
+open DomainModel
 
 open System.Web.Http
 open System.Reactive.Subjects
