@@ -3,6 +3,8 @@ open DomainModel
 
 open Server.WebHost.Data.Controllers
 
+open FSharp.Reactive
+open System.Reactive
 open System
 open System.Net.Http
 open System.Web.Http
@@ -13,26 +15,28 @@ open System.Web.Http.Controllers
 
 type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
 
-type CompositionRoot() = 
+type CompositionRoot(tasks: System.Collections.Concurrent.ConcurrentBag<AnalysisTask>) = 
     let maxJobs = 5
-    let tasks = System.Collections.Concurrent.ConcurrentBag<AnalysisTask>()
 
     let agent = new Agent<AnalysisTask>(fun inbox ->
         let rec loop() = 
             async {
                 let! cmd = inbox.Receive()
+                tasks.Add(cmd)
               //  let handle = Handle maxJobs tasks
               //todo <--- --->
                 return! loop()}
         loop())
     do agent.Start()
+    let tasksRequestObserver = Observer.Create agent.Post
 
     interface IHttpControllerActivator with
         member this.Create(request, controllerDescriptor, controllerType) = 
             if (controllerType = typeof<AnalysisController>) then
                 let c = new AnalysisController()
-                let sub = c.Subscribe agent.Post
-                request.RegisterForDispose sub
+                c 
+                |> Observable.subscribeObserver tasksRequestObserver
+                |> request.RegisterForDispose
                 c :> IHttpController
             else
                 raise <| ArgumentException(sprintf "Unkown controller type requested: %O" controllerType, "controllerType")
@@ -47,8 +51,8 @@ let ConfigureRoutes(config: HttpConfiguration) =
         {controller = "{controller}"; id = RouteParameter.Optional} // Parameter defaults
     ) |> ignore
 
-let ConfigureServices(config: HttpConfiguration) =
-     config.Services.Replace(typeof<IHttpControllerActivator>, CompositionRoot())
+let ConfigureServices tasks (config: HttpConfiguration) =
+     config.Services.Replace(typeof<IHttpControllerActivator>, CompositionRoot(tasks))
 
 let ConfigureFormatters(config: HttpConfiguration) =
      #if DEBUG
@@ -59,9 +63,9 @@ let ConfigureFormatters(config: HttpConfiguration) =
      config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
-let Configure config =
+let Configure tasks config =
     ConfigureRoutes config
-    ConfigureServices config
+    ConfigureServices tasks config
     ConfigureFormatters config
 
 /////////////////
