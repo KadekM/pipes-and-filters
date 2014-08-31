@@ -1,7 +1,6 @@
-namespace Server.WebHost.Controllers
+namespace Server.WebHost.Data.Controllers
 
 open Messages
-open Infrastructure
 
 open System.Web.Http
 open System.Reactive.Subjects
