@@ -32,12 +32,12 @@ type CompositionRoot(tasks: System.Collections.Concurrent.ConcurrentBag<Analysis
 type HttpRoute = {controller: string; id: RouteParameter}
 
 let ConfigureRoutes(config: HttpConfiguration) = 
-    config.MapHttpAttributeRoutes()
     config.Routes.MapHttpRoute(
         "DefaultApi",
         "api/{controller}/{id}",
         {controller = "{controller}"; id = RouteParameter.Optional}
     ) |> ignore
+    
 
 let ConfigureServices tasks tasksRequestObserver (config: HttpConfiguration) =
      config.Services.Replace(typeof<IHttpControllerActivator>, CompositionRoot(tasks, tasksRequestObserver))
@@ -51,10 +51,12 @@ let ConfigureFormatters(config: HttpConfiguration) =
      config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
      config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
-let Configure tasks tasksRequestObserver config =
+let Configure tasks tasksRequestObserver (config: HttpConfiguration) =
     ConfigureRoutes config
     ConfigureServices tasks tasksRequestObserver config
     ConfigureFormatters config
+    config.MapHttpAttributeRoutes()
+
 
 /////////////////
 

@@ -30,4 +30,6 @@ type Global() =
             tasks
             (Observer.Create agent.Post)
             GlobalConfiguration.Configuration
+
+        GlobalConfiguration.Configuration.EnsureInitialized();
         //GlobalConfiguration.Configure(Action<_> Global.RegisterWebApi)
