@@ -46,7 +46,7 @@ let ConfigureRoutes(config: HttpConfiguration) =
     config.Routes.MapHttpRoute(
         "DefaultApi", // Route name
         "api/{controller}/{id}", // URL with parameters
-    { controller = "{controller}"; id = RouteParameter.Optional } // Parameter defaults
+        { controller = "{controller}"; id = RouteParameter.Optional } // Parameter defaults
     ) |> ignore
 
 let ConfigureServices(config: HttpConfiguration) =
