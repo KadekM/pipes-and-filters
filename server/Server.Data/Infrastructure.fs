@@ -9,15 +9,15 @@ open System
 open System.Net.Http
 open System.Web.Http
 open System.Net.Http.Headers
+open System.Collections
 
 open System.Web.Http.Dispatcher
 open System.Web.Http.Controllers
 
 type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
 
-type CompositionRoot(tasks: System.Collections.Concurrent.ConcurrentBag<AnalysisTask>, tasksRequestObserver) = 
-
-
+// todo: AnalysisTask seq to domain object
+type CompositionRoot(tasks: AnalysisTask seq, tasksRequestObserver) = 
     interface IHttpControllerActivator with
         member this.Create(request, controllerDescriptor, controllerType) = 
             if (controllerType = typeof<AnalysisController>) then
