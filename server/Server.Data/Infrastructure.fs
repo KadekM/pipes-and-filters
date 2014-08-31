@@ -32,7 +32,7 @@ type CompositionRoot(tasks: System.Collections.Concurrent.ConcurrentBag<Analysis
 type HttpRoute = {controller: string; id: RouteParameter}
 
 let ConfigureRoutes(config: HttpConfiguration) = 
-    //config.MapHttpAttributeRoutes()
+    config.MapHttpAttributeRoutes()
     config.Routes.MapHttpRoute(
         "DefaultApi",
         "api/{controller}/{id}",
