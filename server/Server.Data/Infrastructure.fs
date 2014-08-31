@@ -34,9 +34,9 @@ type HttpRoute = {controller: string; id: RouteParameter}
 let ConfigureRoutes(config: HttpConfiguration) = 
     //config.MapHttpAttributeRoutes()
     config.Routes.MapHttpRoute(
-        "DefaultApi", // Route name
-        "api/{controller}/{id}", // URL with parameters
-        {controller = "{controller}"; id = RouteParameter.Optional} // Parameter defaults
+        "DefaultApi",
+        "api/{controller}/{id}",
+        {controller = "{controller}"; id = RouteParameter.Optional}
     ) |> ignore
 
 let ConfigureServices tasks tasksRequestObserver (config: HttpConfiguration) =
