@@ -10,11 +10,13 @@ type Link = {
 }
 
 let Link rel uri = {Rel = rel; Uri = uri}
-
+// to module
 [<CLIMutable>]
 type AnalysisRequest = {
     Term: string
 }
+
+let EmptyAnalysisRequest = {Term = ""}
 
 let AnalysisRequest term = {Term = term}
 
@@ -25,8 +27,4 @@ type TaskInfoResponse = {
 }
 
 let TaskInfoResponse id data = {Id = id; Data = data}
-
-
-
-///
 

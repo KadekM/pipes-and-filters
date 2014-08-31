@@ -18,13 +18,14 @@ type AnalysisController(analysisTasks: seq<Analysis.Task>) =
         if disposing then subject.Dispose()
         base.Dispose disposing
 
+    // todo NULL checking
     member this.Post(r: AnalysisRequest) =
         let task = Analysis.CreateTask r
         do subject.OnNext task
         Analysis.AsTaskInfoResponse task
 
     member this.GetAnalysis(id: string) =
-        let som = analysisTasks |> Seq.tryFind(fun x -> x.Id.ToString() = id)
-        match som with
-        | Some x -> "true"
-        | None -> "false"
+        let task = analysisTasks |> Seq.tryFind(fun x -> x.Id.ToString() = id)
+        match task with
+        | Some x -> x
+        | None -> Analysis.Empty
