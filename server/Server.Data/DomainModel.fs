@@ -16,11 +16,11 @@ module Analysis =
         Data: Data array
     }
 
-    let AnalysisTask id request = {Id = id; Request = request; Data = [||]}
+    let Task id request = {Id = id; Request = request; Data = [||]}
 
     //
 
-    let CreateTask request = AnalysisTask (Guid.NewGuid()) request
+    let CreateTask request = Task (Guid.NewGuid()) request
 
     let AsTaskInfoResponse task = TaskInfoResponse task.Id <| Link "TODO" ("/analysis/"+task.Id.ToString())
 
