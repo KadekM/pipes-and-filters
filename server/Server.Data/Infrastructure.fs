@@ -17,7 +17,7 @@ open System.Web.Http.Controllers
 type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
 
 // todo: AnalysisTask seq to domain object
-type CompositionRoot(tasks: AnalysisTask seq, tasksRequestObserver) = 
+type CompositionRoot(tasks: Analysis.Task seq, tasksRequestObserver) = 
     interface IHttpControllerActivator with
         member this.Create(request, controllerDescriptor, controllerType) = 
             if (controllerType = typeof<AnalysisController>) then

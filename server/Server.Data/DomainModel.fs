@@ -3,24 +3,26 @@ open Messages
 
 open System
 
-type AnalysisData = {
-    Total: int
-    Date: DateTimeOffset
-}
+module Analysis = 
 
-type AnalysisTask = {
-    Id: Guid
-    Request: AnalysisRequest
-    Data: AnalysisData array
-}
+    type Data = {
+        Total: int
+        Date: DateTimeOffset
+    }
 
-let AnalysisTask id request = {Id = id; Request = request; Data = [||]}
+    type Task = {
+        Id: Guid
+        Request: AnalysisRequest
+        Data: Data array
+    }
 
-//
+    let AnalysisTask id request = {Id = id; Request = request; Data = [||]}
 
-let CreateTask request = AnalysisTask (Guid.NewGuid()) request
+    //
 
-let AsTaskInfoResponse task = TaskInfoResponse task.Id <| Link "TODO" ("/analysis/"+task.Id.ToString())
+    let CreateTask request = AnalysisTask (Guid.NewGuid()) request
+
+    let AsTaskInfoResponse task = TaskInfoResponse task.Id <| Link "TODO" ("/analysis/"+task.Id.ToString())
 
 (*
 type IAnalysisTasks =

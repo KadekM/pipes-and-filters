@@ -7,11 +7,11 @@ open System.Reactive.Subjects
 open System
 
 // todo make readonly
-type AnalysisController(analysisTasks: seq<AnalysisTask>) =
+type AnalysisController(analysisTasks: seq<Analysis.Task>) =
     inherit ApiController()
 
-    let subject = new Subject<AnalysisTask>()
-    interface IObservable<AnalysisTask> with
+    let subject = new Subject<Analysis.Task>()
+    interface IObservable<Analysis.Task> with
         member this.Subscribe observer = subject.Subscribe observer
 
     override this.Dispose disposing =
@@ -19,9 +19,9 @@ type AnalysisController(analysisTasks: seq<AnalysisTask>) =
         base.Dispose disposing
 
     member this.Post(r: AnalysisRequest) =
-        let task = CreateTask r
+        let task = Analysis.CreateTask r
         do subject.OnNext task
-        AsTaskInfoResponse task
+        Analysis.AsTaskInfoResponse task
 
     member this.GetAnalysis(id: string) =
         let som = analysisTasks |> Seq.tryFind(fun x -> x.Id.ToString() = id)

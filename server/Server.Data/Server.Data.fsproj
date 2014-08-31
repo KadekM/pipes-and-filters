@@ -49,11 +49,11 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <None Include="Playground.fsx" />
     <Compile Include="Messages.fs" />
     <Compile Include="DomainModel.fs" />
     <Compile Include="Controllers.fs" />
     <Compile Include="Infrastructure.fs" />
+    <None Include="Playground.fsx" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
   </ItemGroup>

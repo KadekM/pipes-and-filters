@@ -13,13 +13,13 @@ type Global() =
     inherit System.Web.HttpApplication() 
 
     member this.Application_Start() =
-        let tasks = ConcurrentBag<AnalysisTask>()
+        let tasks = ConcurrentBag<Analysis.Task>()
         let maxJobs = 5
 
-        let tasksSubject = new Subjects.Subject<AnalysisTask>()
+        let tasksSubject = new Subjects.Subject<Analysis.Task>()
         tasksSubject.Subscribe tasks.Add |> ignore
 
-        let agent = new Agent<AnalysisTask>(fun inbox ->
+        let agent = new Agent<Analysis.Task>(fun inbox ->
             let rec loop() = 
                 async {
                     let! task = inbox.Receive()
