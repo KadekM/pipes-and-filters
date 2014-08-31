@@ -25,6 +25,7 @@ type AnalysisController(analysisTasks: ConcurrentDictionary<Guid, Analysis.Task>
         do subject.OnNext task
         Analysis.AsTaskInfoResponse task
 
+    // todo key not found checking
     member this.GetAnalysis(id: string) =
         analysisTasks.Item(Guid.Parse(id))
      

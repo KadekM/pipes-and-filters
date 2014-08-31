@@ -8,7 +8,8 @@ open FSharp.Reactive
 open System.Reactive
 open System
 
-//todo generic envelope with timestamp
+// todo generic envelope with timestamp
+// todo remove concurrent dictionary?
 
 type Global() =
     inherit System.Web.HttpApplication() 
@@ -17,15 +18,29 @@ type Global() =
         let tasks = ConcurrentDictionary<Guid, Analysis.Task>()
 
         // todo MOVE away!
-        let ProcessTask (task:Analysis.Task) =
-            tasks.TryAdd(task.Id, task) |> ignore
-           (* let work = async {
+        let ProcessTask (task: Analysis.Task) =
+            let x = async {
+                tasks.TryAdd(task.Id, task) |> ignore
                 let random = System.Random()
-                do! Async.Sleep 2000
-                let poppedTask = tasks.
-                return! ()
-            }*)
-            ()
+
+                let updateWorkflow (t: Analysis.Task) = async {
+                    let data = Analysis.Data (random.Next(1,100)) (DateTimeOffset.Now.AddDays(float(random.Next(-10,10))))
+                    let newTask = Analysis.AppendData [| data |] t
+                    tasks.TryUpdate(t.Id, newTask, t) |> ignore
+                   // tasks.Item(t.Id) = newTask |> ignore
+                }
+
+                let work t = async {
+                    do! updateWorkflow t
+                    do! Async.Sleep 5000
+                }
+
+                // todo CLEAN
+                [1..10] |> List.map (fun _ -> Async.RunSynchronously ( work (tasks.Item(task.Id)) )) |> ignore
+                ()
+            }
+            Async.RunSynchronously x
+
 
 
         let tasksSubject = new Subjects.Subject<Analysis.Task>()

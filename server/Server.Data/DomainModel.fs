@@ -10,6 +10,8 @@ module Analysis =
         Date: DateTimeOffset
     }
 
+    let Data total date = {Total = total; Date = date}
+
     type Task = {
         Id: Guid
         Request: AnalysisRequest
