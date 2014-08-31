@@ -6,7 +6,8 @@ open System.Web.Http
 open System.Reactive.Subjects
 open System
 
-type AnalysisController() =
+// todo make readonly
+type AnalysisController(analysisTasks: seq<AnalysisTask>) =
     inherit ApiController()
 
     let subject = new Subject<AnalysisTask>()
@@ -17,9 +18,13 @@ type AnalysisController() =
         if disposing then subject.Dispose()
         base.Dispose disposing
 
-    member this.Post(r : AnalysisRequest) =
+    member this.Post(r: AnalysisRequest) =
         let task = CreateTask r
         do subject.OnNext task
         AsTaskInfoResponse task
-     
-    
+
+    member this.GetAnalysis(id: string) =
+        let som = analysisTasks |> Seq.tryFind(fun x -> x.Id.ToString() = id)
+        match som with
+        | Some x -> "true"
+        | None -> "false"

@@ -21,7 +21,7 @@ type CompositionRoot(tasks: AnalysisTask seq, tasksRequestObserver) =
     interface IHttpControllerActivator with
         member this.Create(request, controllerDescriptor, controllerType) = 
             if (controllerType = typeof<AnalysisController>) then
-                let c = new AnalysisController()
+                let c = new AnalysisController(tasks)
                 c 
                 |> Observable.subscribeObserver tasksRequestObserver
                 |> request.RegisterForDispose

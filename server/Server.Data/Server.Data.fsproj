@@ -52,7 +52,7 @@
     <None Include="Playground.fsx" />
     <Compile Include="Messages.fs" />
     <Compile Include="DomainModel.fs" />
-    <Compile Include="Controllers\AnalysisController.fs" />
+    <Compile Include="Controllers.fs" />
     <Compile Include="Infrastructure.fs" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
