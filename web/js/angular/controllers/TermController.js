@@ -2,7 +2,7 @@
 
 (function() {
     angular.module("webAnalyzer.controllers").controller("TermController",
-        function ($scope, $routeParams, $webFetcher, $googleParser) {
+        function ($scope, $routeParams, $location, $anchorScroll, $webFetcher, $googleParser) {
             var onDone = function (contents) {
                 console.log({onDone: contents});
 
@@ -17,6 +17,11 @@
                 console.log({onFail: error});
                 $scope.error = error
             }
+
+
+            $scope.gotoTop = function() {
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+            };
 
             $scope.repo = "Work in progress"
 

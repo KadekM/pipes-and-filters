@@ -29,18 +29,26 @@
     </nav>
 </nav>
 
-<table>
-    <tbody>
-    <tr ng-repeat="request in requests">
-        <td>
-            <div ng-include src="'term.html'"/>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="grid">
+    <div class="row">
+        <div class="span2">
+        </div>
+        <div class="span8">
+            <table>
+                <tbody>
+                <tr ng-repeat="request in requests">
+                    <td>
+                        <div ng-include src="'term.html'"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-<div ng-controller="MainController" ng-init="showGraph()"  >
-    <button ng-click="startLoading()">Start loading</button>
-    <button ng-click="stopLoading()">Stop loading</button>
-    <div id="chart" style="width: 768px; color: black;"></div>
+            <div ng-controller="MainController" ng-init="showGraph()"  >
+                <button ng-click="startLoading()">Start loading</button>
+                <button ng-click="stopLoading()">Stop loading</button>
+                <div id="chart" style="width: 768px; color: black;"></div>
+            </div>
+        </div>
+    </div>
 </div>
