@@ -1,7 +1,6 @@
 <div ng-controller="TermController">
 
     <h2>{{request.term}}</h2>
-    <h3>{{request.type}}</h3>
     <hr/>
     <h3 ng-show="error">
         Error?: {{error}}
@@ -14,6 +13,8 @@
         <br/>
         {{repo}}
     </h3>
+
+    <div id="{{'chart'+request.term}}" style="width: 768px; color: black;"></div>
 
 
     <a ng-show="request.showTop" ng-click="gotoTop()">Go to top</a>
