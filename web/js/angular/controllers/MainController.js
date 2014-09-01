@@ -20,7 +20,6 @@
 
             var containsAnalysisRequest = function($request)
             {
-                // linq
                 if(Enumerable.From($scope.requests).Any(
                         function($item)
                         {
