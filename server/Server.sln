@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5E23CC
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Server.Data", "Server.Data\Server.Data.fsproj", "{891D8650-E146-4ECE-8ADE-2AEB35150547}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Server", "Server\Server.fsproj", "{891D8650-E146-4ECE-8ADE-2AEB35150547}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Server.WebHost.Tests", "Server.WebHost.Tests\Server.WebHost.Tests.fsproj", "{AF5F2400-FB86-41BC-A22A-770704EE11DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +28,10 @@ Global
 		{891D8650-E146-4ECE-8ADE-2AEB35150547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{891D8650-E146-4ECE-8ADE-2AEB35150547}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{891D8650-E146-4ECE-8ADE-2AEB35150547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF5F2400-FB86-41BC-A22A-770704EE11DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF5F2400-FB86-41BC-A22A-770704EE11DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF5F2400-FB86-41BC-A22A-770704EE11DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF5F2400-FB86-41BC-A22A-770704EE11DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

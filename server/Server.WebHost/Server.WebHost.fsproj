@@ -174,8 +174,8 @@
     <Reference Include="System.Xml.Linq.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Server.Data\Server.Data.fsproj">
-      <Name>Server.Data</Name>
+    <ProjectReference Include="..\Server\Server.fsproj">
+      <Name>Server</Name>
       <Project>{891d8650-e146-4ece-8ade-2aeb35150547}</Project>
       <Private>True</Private>
     </ProjectReference>
