@@ -14,6 +14,8 @@ type Global() =
     inherit System.Web.HttpApplication()
     member this.Application_Start() = 
         let tasks = ConcurrentDictionary<Guid, Analysis.Task>()
+
+
         let swearTermsFilter = SwearTermsFilter.Create()
         let googleFilter = GoogleFilter.Create()
         let bingFilter = BingFilter.Create()
