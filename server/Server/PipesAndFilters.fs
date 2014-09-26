@@ -37,7 +37,7 @@ type Filter<'a, 'b>(filter : 'a -> 'b option) =
         member x.Send(input) = agent.Post input
 
 //todo: remove dependancy on ConcurrentDictionary
-type Aggregator<'TValue, 'TKey>(bag : ConcurrentDictionary<'TKey, 'TValue>, toIdtransformer: 'TValue -> 'TKey, mergeStrategy: 'TValue -> 'TValue -> 'TValue) = 
+type Aggregator<'TValue, 'TKey>(bag : ConcurrentDictionary<'TKey, 'TValue>, toIdtransformer : 'TValue -> 'TKey, mergeStrategy : 'TValue -> 'TValue -> 'TValue) = 
     let subject = new Subject<'TValue>()
     
     let agent = 
@@ -52,7 +52,8 @@ type Aggregator<'TValue, 'TKey>(bag : ConcurrentDictionary<'TKey, 'TValue>, toId
                     match bag.TryUpdate(id, merged, current) with
                     | true -> subject.OnNext(merged)
                     | false -> ()
-                | _ -> match bag.TryAdd(id, msg) with
+                | _ -> 
+                    match bag.TryAdd(id, msg) with
                     | true -> subject.OnNext(msg)
                     | false -> ()
                 return! loop()
