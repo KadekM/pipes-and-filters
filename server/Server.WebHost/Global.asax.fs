@@ -15,13 +15,14 @@ type Global() =
     member this.Application_Start() = 
         let tasks = ConcurrentDictionary<Guid, Analysis.Task>()
 
-
         let swearTermsFilter = SwearTermsFilter.Create()
         let googleFilter = GoogleFilter.Create()
         let bingFilter = BingFilter.Create()
         let googleBingAggregator = GoogleBingAggregator.Create(tasks)
 
-        swearTermsFilter |~< [| googleFilter; bingFilter |]
+        let googleAndBingFilters = [1..5] |> Seq.fold(fun acc _ -> acc @ [googleFilter; bingFilter]) [] |> Seq.map (fun x -> x :> ISinkable<_>)
+
+        swearTermsFilter |~< googleAndBingFilters
         |> ignore
 
         [| googleFilter; bingFilter |] |~> googleBingAggregator

@@ -2,7 +2,7 @@
 
 (function() {
     angular.module("webAnalyzer.controllers").controller("TermController",
-        function ($scope, $routeParams, $webFetcher, $googleParser, $timeout, $fakeDataService) {
+        function ($scope, $routeParams, $webFetcher, $googleParser, $timeout, $dataService) {
             var onDone = function (contents) {
                 console.log({onDone: contents});
 
@@ -76,13 +76,13 @@
             }
 
             $scope.loadNewData = function () {
-                $fakeDataService.loadData(function (newData) {
+                $dataService.loadData(function (newData) {
                     var data = {};
                     data.keys = $scope.config.keys;
                     data.json = newData;
                     $scope.chart.load(data);
                     $timeout(function () {
-                        if($fakeDataService.dataLoaded()) {
+                        if($dataService.dataLoaded()) {
                             $scope.keepLoading = false;
                         }
                         if ($scope.keepLoading) {
