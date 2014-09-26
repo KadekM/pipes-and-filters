@@ -49,10 +49,13 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="PipesAndFilters.fs" />
     <Compile Include="Messages.fs" />
     <Compile Include="DomainModel.fs" />
     <Compile Include="Controllers.fs" />
     <Compile Include="Infrastructure.fs" />
+    <Compile Include="Filters.fs" />
+    <Compile Include="Dsl.fs" />
     <None Include="Playground.fsx" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
