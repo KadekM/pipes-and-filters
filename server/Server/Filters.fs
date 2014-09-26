@@ -37,5 +37,6 @@ module BingFilter =
     let Create() = new Filter<_, _>(filter)
 
 module GoogleBingAggregator = 
-    let transform (task : Analysis.Task) = task.Id
-    let Create(bag) = new Aggregator<Analysis.Task, Guid>(bag, transform)
+    let transform task = task.Id
+    let merge t1 t2 = t1 |> Analysis.AppendData t2.Data
+    let Create(bag) = new Aggregator<Analysis.Task, Guid>(bag, transform, merge)
