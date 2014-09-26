@@ -28,7 +28,7 @@ type Global() =
 
         Infrastructure.Configure 
             tasks
-            (Observer.Create( swearTermsFilter.Send ))
+            (Observer.Create( (googleFilter :> ISinkable<_>).Send ))
             GlobalConfiguration.Configuration
 
         GlobalConfiguration.Configuration.EnsureInitialized();
