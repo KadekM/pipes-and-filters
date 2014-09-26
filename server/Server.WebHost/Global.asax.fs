@@ -25,7 +25,7 @@ type Global() =
         |> ignore
 
         [| googleFilter; bingFilter |] |~> googleBingAggregator
-        |> ignore
+        |> ignore 
 
         Infrastructure.Configure tasks (Observer.Create((swearTermsFilter :> ISinkable<_>).Send)) 
             GlobalConfiguration.Configuration

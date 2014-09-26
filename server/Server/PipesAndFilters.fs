@@ -51,7 +51,9 @@ type Aggregator<'TValue, 'TKey>(bag : ConcurrentDictionary<'TKey, 'TValue>, toId
                     match bag.TryUpdate(id, msg, current) with
                     | true -> subject.OnNext(msg)
                     | false -> ()
-                | _ -> ()
+                | _ -> match bag.TryAdd(id, msg) with
+                    | true -> subject.OnNext(msg)
+                    | false -> ()
                 return! loop()
             }
         loop())
