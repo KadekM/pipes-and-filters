@@ -17,10 +17,15 @@ type Global() =
         let swearTermsFilter = SwearTermsFilter.Create()
         let googleFilter = GoogleFilter.Create()
         let bingFilter = BingFilter.Create()
+        let googleBingAggregator = GoogleBingAggregator.Create(tasks)
+
         swearTermsFilter |~< [| googleFilter; bingFilter |]
         |> ignore
-        //[| googleFilter; bingFilter |] |~> 
-        Infrastructure.Configure tasks (Observer.Create((googleFilter :> ISinkable<_>).Send)) 
+
+        [| googleFilter; bingFilter |] |~> googleBingAggregator
+        |> ignore
+
+        Infrastructure.Configure tasks (Observer.Create((swearTermsFilter :> ISinkable<_>).Send)) 
             GlobalConfiguration.Configuration
         GlobalConfiguration.Configuration.EnsureInitialized()
 //GlobalConfiguration.Configure(Action<_> Global.RegisterWebApi)
