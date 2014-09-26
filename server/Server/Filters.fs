@@ -12,7 +12,7 @@ module SwearTermsFilter =
         else
             Some(task)
     
-    let Create() = new Filter<_, _>(filter)
+    let Create() = new Filter<_,_>(filter)
 
 
 // random data, later use service
@@ -26,13 +26,13 @@ module GoogleFilter =
       task |> AppendData [| data |] |> Option.Some
        
     
-    let Create() = new Filter<_, _>(filter) 
+    let Create() = new Filter<_,_>(filter) 
 
 module BingFilter =
     let filter (task:Analysis.Task) = 
       let data = Data (random.Next(1, 30)) (DateTimeOffset.Now.AddDays(float(random.Next(1,15))))
       task |> AppendData [| data |] |> Option.Some
     
-    let Create() = new Filter<_, _>(filter)
+    let Create() = new Filter<_,_>(filter)
 
 
