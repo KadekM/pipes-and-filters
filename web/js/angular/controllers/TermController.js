@@ -2,38 +2,22 @@
 
 (function() {
     angular.module("webAnalyzer.controllers").controller("TermController",
-        function ($scope, $routeParams, $webFetcher, $googleParser, $timeout, $dataService) {
-            var onDone = function (contents) {
-                console.log({onDone: contents});
+        function ($scope, $routeParams, $webFetcher, $timeout, $dataService) {
+            var url = "http://webanalyzer.azurewebsites.net/api/analysis";
 
-                try {
-                    $scope.repo = $googleParser.parse(contents).count;
-                } catch (_) {
-                    $scope.repo = "ERRRRR";
+            $.ajax({
+                crossDomain: true,
+                type: 'POST',
+                url: url,
+                data:  JSON.stringify({"Term": $scope.request.term}),
+                contentType:   'text/json',
+                success:   function(json) {
+                    console.log(json)
+                    $scope.graphInit(url+"/"+json.id); // todo based on URI
                 }
-            };
+            });
 
-            var onFail = function (jqxhr, textStatus, error) {
-                console.log({onFail: error});
-                $scope.error = error
-            }
-
-
-            $scope.gotoTop = function() {
-                document.body.scrollTop = document.documentElement.scrollTop = 0;
-            };
-
-            $scope.repo = "Work in progress"
-
-            var url = "https://www.google.sk/search?q=" + $scope.request.term;
-            $webFetcher.getFullContent(url, onDone, onFail);
-
-
-            // graph:
-
-
-            $scope.graphIni = function () {
-
+            $scope.graphInit = function (taskUrl) {
                 $scope.chart = null;
                 $scope.config = {};
 
@@ -41,9 +25,7 @@
 
                 $scope.config.type1 = "spline";
                 $scope.config.type2 = "spline";
-                $scope.config.keys = {"x": "x", "value": ["Sentiment", "Hits"]};
-
-                $scope.keepLoading = true;
+                $scope.config.keys = {"x": "x", "value": ["Hits"]};
 
                 $timeout(function () {
                     var config = {};
@@ -56,7 +38,7 @@
                     config.axis.x = {"type": "timeseries", "tick": {"format": function (x) { return x.format("yyyy-mm-dd"); }}};
 
                     config.size = {
-                        "height": 240, "width": 480
+                        "width": 800, "height": 600
                     }
 
                     config.data.types = {"data1": $scope.config.type1, "data2": $scope.config.type2};
@@ -64,36 +46,31 @@
                     config.axis.y2 = {"show":"true", "tick": {"format": d3.format("0.1f")}};
                     $scope.chart = c3.generate(config);
 
-                    $scope.startLoading();
+                    $scope.startLoading(taskUrl);
                 }, 1000);
 
 
             }
 
-            $scope.startLoading = function () {
-                $scope.keepLoading = true;
-                $scope.loadNewData();
+            $scope.startLoading = function (taskUrl) {
+                $scope.loadNewData(taskUrl);
             }
 
-            $scope.loadNewData = function () {
-                $dataService.loadData(function (newData) {
+            $scope.loadNewData = function (taskUrl) {
+                $dataService.loadData(taskUrl, function (newData) {
+                    var url = taskUrl
                     var data = {};
                     data.keys = $scope.config.keys;
                     data.json = newData;
                     $scope.chart.load(data);
+
                     $timeout(function () {
-                        if($dataService.dataLoaded()) {
-                            $scope.keepLoading = false;
-                        }
-                        if ($scope.keepLoading) {
-                            $scope.loadNewData()
+                        if (data.json.length < 10) { // todo: better stop condition
+                            $scope.loadNewData(url)
                         }
                     }, 1000);
                 });
             }
-
-            $scope.graphIni();
-
         }
     );
 }());

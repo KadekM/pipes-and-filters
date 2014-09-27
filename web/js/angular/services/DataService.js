@@ -3,15 +3,27 @@
 (function () {
     angular.module('webAnalyzer.services', []).factory('$dataService', function() {
         function DataService() {
-            var data = [];
+            this.loadData = function(taskUrl, callback) {
+                $.ajax({
+                    crossDomain: true,
+                    type: 'GET',
+                    url: taskUrl,
+                    contentType:   'text/json',
+                    success:   function(json) {
+                        console.log(json)
 
-            this.loadData = function(callback) {
-                var xAxis = useDate.format("yyyy-mm-dd");
+                        var processed = [];
+                        for (var index = 0; index < json.data.length; ++index) {
+                            var entry = json.data[index]
+                            var amount = entry.total;
+                            var date = new Date(entry.date).format("yyyy-mm-dd");
+                            processed.push({"x": date, "Hits":amount});
+                        }
 
-
-
-                data.push({"x":xAxis,"Sentiment":randomSentiment(),"Hits":randomHits()});
-                callback(data);
+                        console.log(processed);
+                        callback(processed);
+                    }
+                });
             };
         }
 

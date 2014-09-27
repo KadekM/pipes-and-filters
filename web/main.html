@@ -26,20 +26,9 @@
 </nav>
 
 <div class="grid">
-    <div class="row">
-        <div class="span2">
-        </div>
-        <div class="span8">
-            <table>
-                <tbody>
-                <tr ng-repeat="request in requests">
-                    <td>
-                        <div ng-include src="'term.html'"/>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
+    <div class="row" ng-repeat="request in requests">
+        <div class="offset4 span12">
+              <div ng-include src="'term.html'"/>
         </div>
     </div>
 </div>
