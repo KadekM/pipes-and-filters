@@ -6,8 +6,10 @@ open System
 open System.Collections.Concurrent
 open System.Reactive.Subjects
 open System.Web.Http
+open System.Web.Http.Cors
 
-// todo make readonly
+// todo dictioanry make readonly
+[<EnableCorsAttribute("*", "*", "*")>]
 type AnalysisController(analysisTasks : ConcurrentDictionary<Guid, Analysis.Task>) = 
     inherit ApiController()
     let subject = new Subject<Analysis.Task>()

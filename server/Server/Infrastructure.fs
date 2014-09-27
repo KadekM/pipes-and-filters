@@ -4,14 +4,13 @@ open DomainModel
 open FSharp.Reactive
 open Server.WebHost.Data.Controllers
 open System
-open System.Collections
 open System.Collections.Concurrent
 open System.Net.Http
 open System.Net.Http.Headers
-open System.Reactive
 open System.Web.Http
 open System.Web.Http.Controllers
 open System.Web.Http.Dispatcher
+open System.Web.Http.Cors
 
 type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
 
@@ -49,12 +48,12 @@ let ConfigureFormatters(config : HttpConfiguration) =
 #endif
     config.Formatters.XmlFormatter.UseXmlSerializer <- false
     config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
-    config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver
-                                                                               ()
+    config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
 let Configure tasks tasksRequestObserver (config : HttpConfiguration) = 
     ConfigureRoutes config
     ConfigureServices tasks tasksRequestObserver config
     ConfigureFormatters config
     config.MapHttpAttributeRoutes()
+    config.EnableCors()
 /////////////////

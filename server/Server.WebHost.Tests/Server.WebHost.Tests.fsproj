@@ -51,6 +51,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Compile Include="Test.fs" />
+    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
