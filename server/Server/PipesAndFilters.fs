@@ -10,6 +10,8 @@ open System.Reactive.Subjects
 type ISinkable<'a> = 
     abstract Send : 'a -> unit
 
+let random = Random()
+
 type Filter<'a, 'b>(filter : 'a -> 'b option) = 
     let subject = new Subject<'b>()
     

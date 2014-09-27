@@ -20,8 +20,8 @@ let random = Random()
 
 module GoogleFilter = 
     let filter (task : Analysis.Task) = 
-        System.Threading.Thread.Sleep(random.Next(1000,7000)) // simulate delay
-        let data = Data (random.Next(1, 100)) (DateTimeOffset.Now.AddDays(float (random.Next(1, 30))))
+        System.Threading.Thread.Sleep(random.Next(1000,10000)) // simulate web delay
+        let data = Data (random.Next(-100, 100)) (DateTimeOffset.Now.AddDays(float (random.Next(-60, 60))))
         task
         |> AppendData [| data |]
         |> Option.Some
@@ -30,8 +30,8 @@ module GoogleFilter =
 
 module BingFilter = 
     let filter (task : Analysis.Task) = 
-        System.Threading.Thread.Sleep(random.Next(1000,7000)) // simulate delay
-        let data = Data (random.Next(1, 30)) (DateTimeOffset.Now.AddDays(float (random.Next(1, 15))))
+        System.Threading.Thread.Sleep(random.Next(1000,10000)) // simulate web delay
+        let data = Data (random.Next(20, 60)) (DateTimeOffset.Now.AddDays(float (random.Next(-60, 60))))
         task
         |> AppendData [| data |]
         |> Option.Some

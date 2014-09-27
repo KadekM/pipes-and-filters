@@ -47,7 +47,7 @@ let ConfigureFormatters(config : HttpConfiguration) =
     
 #endif
     config.Formatters.XmlFormatter.UseXmlSerializer <- false
-    config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
+   // config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
     config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
 let Configure tasks tasksRequestObserver (config : HttpConfiguration) = 
