@@ -1,6 +1,0 @@
-- Merge server and web into one application (asp.net)
-- promises
-- unit tests
-- swap to model based approach
-- remove applies ^^
-- cleanup SERVICES! nameinig etc
