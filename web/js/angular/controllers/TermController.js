@@ -39,12 +39,11 @@
                     config.axis.x = {"type": "timeseries", "tick": {"format": function (x) { return x.format("yyyy-mm-dd"); }}};
 
                     config.size = {
-                        "width": 800, "height": 600
+                        "width": 640, "height": 480
                     }
 
                     config.data.types = {"data1": $scope.config.type1, "data2": $scope.config.type2};
                     config.data.axes = {"Sentiment": "y2"};
-                    config.axis.y2 = {"show":"true", "tick": {"format": d3.format("0.1f")}};
                     $scope.chart = c3.generate(config);
 
                     $scope.startLoading(taskUrl);

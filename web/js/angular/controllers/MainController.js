@@ -15,7 +15,7 @@
                 if(containsAnalysisRequest($request))
                     return;
 
-                $scope.requests.push($request);
+                $scope.requests.unshift($request);
             };
 
             var containsAnalysisRequest = function($request)
