@@ -39,18 +39,25 @@ type Filter<'a, 'b>(filter : 'a -> 'b option) =
     interface ISinkable<'a> with
         member x.Send(input) = agent.Post input
 
-type LongRunningFilter<'a, 'b>(filter : 'a -> Async<'b option>) = 
+
+
+type LongRunningFilter<'a, 'b>(filter : 'a -> 'b option) = 
     let subject = new Subject<'b>()
     
     let agent = 
         new Agent<'a>(fun inbox -> 
+        let processMessage msg = 
+            async {
+              let filtered = filter msg
+              match filtered with
+                | Some x -> subject.OnNext(x)
+                | None -> ()
+            }
+
         let rec loop() = 
             async { 
                 let! msg = inbox.Receive()
-                let! filtered = filter msg
-                match filtered with
-                | Some x -> subject.OnNext(x)
-                | None -> ()
+                Async.Start (processMessage msg) |> ignore
                 return! loop()
             }
         loop())

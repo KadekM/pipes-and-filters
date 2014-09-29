@@ -12,5 +12,5 @@ let x = async {
 }
 
 printfn "A"
-[x] |> Async.Parallel |> Async.RunSynchronously
+Async.Start(x)
 printfn "B"
