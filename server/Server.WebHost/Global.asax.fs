@@ -1,6 +1,6 @@
 namespace Server.WebHost
 
-open DomainModel
+open Messages
 open Dsl.Operators
 open FSharp.Reactive
 open Filters

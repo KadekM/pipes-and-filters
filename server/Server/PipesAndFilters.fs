@@ -1,7 +1,7 @@
 ﻿[<AutoOpen>]
 module PipesAndFilters
 
-type Agent<'a> = MailboxProcessor<'a>
+type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
 
 open System
 open System.Collections.Concurrent
@@ -12,7 +12,7 @@ type ISinkable<'a> =
 
 let random = Random()
 
-// todo: better abstraction
+// todo: refactor (better abstraction)
 
 type Filter<'a, 'b>(filter : 'a -> 'b option) = 
     let subject = new Subject<'b>()
@@ -43,7 +43,7 @@ type Filter<'a, 'b>(filter : 'a -> 'b option) =
 
 
 
-type LongRunningFilter<'a, 'b>(filter : 'a -> 'b option) = 
+type AsyncFilter<'a, 'b>(filter : 'a -> 'b option) = 
     let subject = new Subject<'b>()
     
     let agent = 
@@ -74,8 +74,6 @@ type LongRunningFilter<'a, 'b>(filter : 'a -> 'b option) =
     
     interface ISinkable<'a> with
         member x.Send(input) = agent.Post input
-
-
 
 
 //todo: remove dependancy on ConcurrentDictionary

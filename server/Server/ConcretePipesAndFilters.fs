@@ -1,6 +1,6 @@
 ﻿module Filters
 
-open DomainModel
+open Messages
 open PipesAndFilters
 
 module SwearTermsFilter = 
@@ -26,7 +26,7 @@ module GoogleFilter =
         |> AppendData [| data |]
         |> Option.Some
     
-    let Create() = new LongRunningFilter<_, _>(filter)
+    let Create() = new AsyncFilter<_, _>(filter)
 
 module BingFilter = 
     let filter (task : Analysis.Task) = 
@@ -36,7 +36,7 @@ module BingFilter =
         |> AppendData [| data |]
         |> Option.Some
     
-    let Create() = new LongRunningFilter<_, _>(filter)
+    let Create() = new AsyncFilter<_, _>(filter)
 
 module GoogleBingAggregator = 
     let transform task = task.Id

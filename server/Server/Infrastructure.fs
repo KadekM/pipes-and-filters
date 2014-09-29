@@ -1,6 +1,6 @@
 ﻿module Infrastructure
 
-open DomainModel
+open Messages
 open FSharp.Reactive
 open Server.WebHost.Data.Controllers
 open System
@@ -12,9 +12,6 @@ open System.Web.Http.Controllers
 open System.Web.Http.Dispatcher
 open System.Web.Http.Cors
 
-type Agent<'T> = Microsoft.FSharp.Control.MailboxProcessor<'T>
-
-// todo: AnalysisTask seq to domain object
 type CompositionRoot(tasks : ConcurrentDictionary<Guid, Analysis.Task>, tasksRequestObserver) = 
     interface IHttpControllerActivator with
         member this.Create(request, controllerDescriptor, controllerType) = 
@@ -44,10 +41,8 @@ let ConfigureServices tasks tasksRequestObserver (config : HttpConfiguration) =
 let ConfigureFormatters(config : HttpConfiguration) =
 #if DEBUG 
     config.Formatters.JsonFormatter.SupportedMediaTypes.Add(MediaTypeHeaderValue("text/html"))
-    
 #endif
     config.Formatters.XmlFormatter.UseXmlSerializer <- false
-   // config.Formatters.JsonFormatter.UseDataContractJsonSerializer <- true
     config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <- Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
 
 let Configure tasks tasksRequestObserver (config : HttpConfiguration) = 
@@ -56,4 +51,3 @@ let Configure tasks tasksRequestObserver (config : HttpConfiguration) =
     ConfigureFormatters config
     config.MapHttpAttributeRoutes()
     config.EnableCors()
-/////////////////

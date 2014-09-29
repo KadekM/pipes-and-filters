@@ -1,14 +1,14 @@
 namespace Server.WebHost.Data.Controllers
 
-open DomainModel
 open Messages
+open Messages.Requests
 open System
 open System.Collections.Concurrent
 open System.Reactive.Subjects
 open System.Web.Http
 open System.Web.Http.Cors
 
-// todo dictioanry make readonly
+// todo dictionary make readonly
 [<EnableCorsAttribute("*", "*", "*")>]
 type AnalysisController(analysisTasks : ConcurrentDictionary<Guid, Analysis.Task>) = 
     inherit ApiController()
@@ -21,7 +21,6 @@ type AnalysisController(analysisTasks : ConcurrentDictionary<Guid, Analysis.Task
         if disposing then subject.Dispose()
         base.Dispose disposing
     
-    // todo NULL checking
     member this.Post(r : AnalysisRequest) = 
         let task = Analysis.CreateTask r
         do subject.OnNext task
