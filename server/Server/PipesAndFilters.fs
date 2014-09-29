@@ -20,7 +20,8 @@ type Filter<'a, 'b>(filter : 'a -> 'b option) =
         let rec loop() = 
             async { 
                 let! msg = inbox.Receive()
-                match filter msg with
+                let filtered = filter msg
+                match filtered with
                 | Some x -> subject.OnNext(x)
                 | None -> ()
                 return! loop()
@@ -37,6 +38,36 @@ type Filter<'a, 'b>(filter : 'a -> 'b option) =
     
     interface ISinkable<'a> with
         member x.Send(input) = agent.Post input
+
+type LongRunningFilter<'a, 'b>(filter : 'a -> Async<'b option>) = 
+    let subject = new Subject<'b>()
+    
+    let agent = 
+        new Agent<'a>(fun inbox -> 
+        let rec loop() = 
+            async { 
+                let! msg = inbox.Receive()
+                let! filtered = filter msg
+                match filtered with
+                | Some x -> subject.OnNext(x)
+                | None -> ()
+                return! loop()
+            }
+        loop())
+    
+    do agent.Start()
+    
+    interface IObservable<'b> with
+        member x.Subscribe(observer : IObserver<'b>) : IDisposable = subject.Subscribe observer
+    
+    interface IDisposable with
+        member x.Dispose() = subject.Dispose()
+    
+    interface ISinkable<'a> with
+        member x.Send(input) = agent.Post input
+
+
+
 
 //todo: remove dependancy on ConcurrentDictionary
 type Aggregator<'TValue, 'TKey>(bag : ConcurrentDictionary<'TKey, 'TValue>, toIdtransformer : 'TValue -> 'TKey, mergeStrategy : 'TValue -> 'TValue -> 'TValue) = 

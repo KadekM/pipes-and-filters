@@ -3,7 +3,7 @@
 (function() {
     angular.module("webAnalyzer.controllers").controller("TermController",
         function ($scope, $routeParams, $webFetcher, $timeout, $dataService) {
-            var url = "http://webanalyzer.azurewebsites.net/api/analysis";
+            var url = "http://localhost:48213/api/analysis";
 
             $.ajax({
                 crossDomain: true,
