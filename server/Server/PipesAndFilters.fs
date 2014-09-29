@@ -12,6 +12,8 @@ type ISinkable<'a> =
 
 let random = Random()
 
+// todo: better abstraction
+
 type Filter<'a, 'b>(filter : 'a -> 'b option) = 
     let subject = new Subject<'b>()
     

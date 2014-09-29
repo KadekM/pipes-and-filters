@@ -54,7 +54,7 @@
     <Compile Include="PipesAndFilters.fs" />
     <Compile Include="Controllers.fs" />
     <Compile Include="Infrastructure.fs" />
-    <Compile Include="Filters.fs" />
+    <Compile Include="ConcreteFilters.fs" />
     <Compile Include="Dsl.fs" />
     <None Include="Playground.fsx" />
     <Content Include="packages.config" />
